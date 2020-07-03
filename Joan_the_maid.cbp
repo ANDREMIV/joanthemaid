@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Joan_the_maid" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Joan_the_maid" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="960 960" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Joan_the_maid" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Dmain=SDL_main" />
+			<Add directory="C:/devel/C/SDL2-2.0.12/x86_64-w64-mingw32/include/SDL2" />
+			<Add directory="C:/devel/C/SDL2_ttf/x86_64-w64-mingw32/include/SDL2" />
+			<Add directory="C:/devel/C/SDL2_image-2.0.5/x86_64-w64-mingw32/include/SDL2" />
+		</Compiler>
+		<Linker>
+			<Add option="-lmingw32" />
+			<Add option="-lSDL2main" />
+			<Add option="-lSDL2.dll" />
+			<Add option="-mconsole" />
+			<Add option="-lSDL2_ttf" />
+			<Add option="-lSDL2_image.dll" />
+			<Add directory="C:/devel/C/SDL2-2.0.12/x86_64-w64-mingw32/lib" />
+			<Add directory="C:/devel/C/SDL2_ttf/x86_64-w64-mingw32/lib" />
+			<Add directory="C:/devel/C/SDL2_image-2.0.5/x86_64-w64-mingw32/lib" />
+		</Linker>
+		<Unit filename="board.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="board.h" />
+		<Unit filename="case_type.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="case_type.h" />
+		<Unit filename="display.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="event.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="game.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="hud.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="init.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.h" />
+		<Unit filename="mouse.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="mouse.h" />
+		<Unit filename="players.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="players.h" />
+		<Unit filename="rules.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rules.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

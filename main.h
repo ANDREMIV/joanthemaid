@@ -1,14 +1,32 @@
+
+
+
+
+
 #include <SDL.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <SDL_ttf.h>
 #include <string.h>
 #include <SDL_image.h>
 
+#ifdef WINWIN_BUILD
+#include <windows.h>
+#include <tchar.h>
+#include <stdio.h>
+#include <strsafe.h>
+
+
+//void ErrorExit(char* text);
+void ErrorExit(PTSTR lpszFunction);
+#endif // WINWIN_BUILD
+
 #include "case_type.h"
 #include "board.h"
 #include "rules.h"
 #include "players.h"
+
+#define BUFSIZE 4096
+
 
 
 struct Game{ ///Holds the necessary info to play a particular game
@@ -20,7 +38,7 @@ int Wcastling_rights_left;
 int Wcastling_rights_right;
 int Bcastling_rights_left;
 int Bcastling_rights_right;
-#define MAX_MOVES_NB 100
+#define MAX_MOVES_NB 1000
 char moves[MAX_MOVES_NB][6];
 int condensed[MAX_MOVES_NB];
 struct player players[2];

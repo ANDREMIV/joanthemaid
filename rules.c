@@ -10,9 +10,12 @@
 //int i, j : src square
 //n, m : dst square
 
-//rock permissions
 //3 fold repetition
-//50 moves rule
+//50 moves rule nearly done
+//engine promotion
+//engine rock chess960 ?
+
+const int ENUMSIZE = sizeof(enum Etype);
 
 void king_pos(enum piece_color c1, int* a,int* b)
 {
@@ -174,14 +177,17 @@ int is_check(enum piece_color c1)
 
 int is_move_valid(char* move,enum piece_color turn, int* type)
 {
-    int dum;
+    int dum=0;
     if(!type)type=&dum;
     int i=move[0]-'a'; if(i<0&&i>=ROWNB)return 0;
     int j=move[1]-'1'; if(j<0&&j>=LINENB)return 0;
     int n=move[2]-'a'; if(n<0&&n>=ROWNB)return 0;
     int m=move[3]-'1'; if(m<0&&m>=LINENB)return 0;
 
-
+    if((i==0&&j==0)||(n==0&&m==0))*type|=LBROOKE;
+    if((i==0&&j==7)||(n==0&&m==7))*type|=LWROOKE;
+    if((i==7&&j==0)||(n==7&&m==0))*type|=RBROOKE;
+    if((i==7&&j==7)||(n==7&&m==7))*type|=RWROOKE;
 
     //find piece and color
     enum CaseType P1=G.B.b[i][j]; enum CaseType P2=G.B.b[n][m];enum piece_color c1,c2; enum piece p1;
@@ -196,24 +202,24 @@ int is_move_valid(char* move,enum piece_color turn, int* type)
         {if(is_check(turn))return 0;
         if(!G.Wcastling_rights_right)return 0; if(!(!strcmp(move,"e8g8")&&G.B.b[4][7]==db_wking))return 0;
         if(is_square_attacked(5,7,!turn)||is_square_attacked(6,7,!turn))return 0;
-        if(is_piece_a_piece(G.B.b[5][7])||is_piece_a_piece(G.B.b[6][7]))return 0;*type=WSROCK;return 1;}
+        if(is_piece_a_piece(G.B.b[5][7])||is_piece_a_piece(G.B.b[6][7]))return 0;*type|=WSROCK;return 1;}
      if(turn==BLACK)
         if(!strcmp(move,"O-O")||(!strcmp(move,"e1g1")&&G.B.b[4][0]==wb_bking))
         {if(is_check(turn))return 0;if(!G.Bcastling_rights_right)return 0;if(!(!strcmp(move,"e1g1")&&G.B.b[4][0]==wb_bking))return 0;
            if(is_square_attacked(5,0,!turn)||is_square_attacked(6,0,!turn))return 0;
         if(is_piece_a_piece(G.B.b[5][0])||is_piece_a_piece(G.B.b[6][0]))return 0;
-        *type=BSROCK;return 1;}
+        *type|=BSROCK;return 1;}
      if(turn==WHITE)
     if(!strcmp(move,"O-O-O")||(!strcmp(move,"e8c8")&&G.B.b[4][7]==db_wking)){if(is_check(turn))return 0;
         if(!G.Wcastling_rights_left)return 0;if(!(!strcmp(move,"e8c8")&&G.B.b[4][7]==db_wking))return 0;
         if(is_square_attacked(3,7,!turn)||is_square_attacked(2,7,!turn))return 0;
-        if(is_piece_a_piece(G.B.b[1][7])||is_piece_a_piece(G.B.b[2][7])||is_piece_a_piece(G.B.b[3][7]))return 0;*type=WLROCK;return 1;}
+        if(is_piece_a_piece(G.B.b[1][7])||is_piece_a_piece(G.B.b[2][7])||is_piece_a_piece(G.B.b[3][7]))return 0;*type|=WLROCK;return 1;}
         if(turn==BLACK)
         if(!strcmp(move,"O-O-O")||(!strcmp(move,"e1c1")&&G.B.b[4][0]==wb_bking))
         {if(is_check(turn))return 0;if(!G.Bcastling_rights_left)return 0;if(!(!strcmp(move,"e1c1")&&G.B.b[4][0]==wb_bking))return 0;
            if(is_square_attacked(3,0,!turn)||is_square_attacked(2,0,!turn))return 0;
         if(is_piece_a_piece(G.B.b[1][0])||is_piece_a_piece(G.B.b[2][0])||is_piece_a_piece(G.B.b[3][0]))return 0;
-        *type=BLROCK;return 1;}
+        *type|=BLROCK;return 1;}
 
 
     if(i==n&&j==m)return 0;//you can not move to the same square
@@ -229,10 +235,10 @@ int is_move_valid(char* move,enum piece_color turn, int* type)
     enum piece_color csrc=square_color(i,j);*/
     double distance=sqrt((n-i)*(n-i)+(m-j)*(m-j));
 
-    enum piece p2=NOTPIECE; p2=find_piece_from_CT(P2);
+    enum piece p2=NOTPIECE; p2=find_piece_from_CT(P2); if(p2!=NOTPIECE)*type|=CAPTURE;
     int a,b,c,d,e,f,g,h; king_pos(turn,&a,&b); int che=is_check(turn);
         who_attacks_square(a,b,&c,&d, &g,&h,!turn);
-    if(p1==KING){if(n>i+1||n<i-1||m>j+1||m<j-1)return 0;//add code to prevent king into staying in check
+    if(p1==KING){if(turn==WHITE)*type|=WKING;else *type|=BKING;if(n>i+1||n<i-1||m>j+1||m<j-1)return 0;//add code to prevent king into staying in check
             if(is_square_attacked(n,m,!turn))return 0;
             if(che&&find_piece_from_CT(G.B.b[c][d])!=PAWN&&find_piece_from_CT(G.B.b[c][d])!=KNIGHT){
                 int k1,k2; int s1= (c-a)!=0 ? -(c-a)/abs(c-a) : 0; int s2= (d-b)!=0 ? -(d-b)/abs(d-b) : 0; if(n==a+s1&&m==b+s2)return 0;
@@ -270,6 +276,7 @@ int is_move_valid(char* move,enum piece_color turn, int* type)
     if(p1!=PAWN)
      {if(!can_single_piece_attack_square(i,j,n,m,P1))return 0;}
     else{//pawn special
+            *type|=PAWNM;
             if(distance>2.01)return 0;
         if((n-i)*(n-i)>1)return 0;
             if(c1==BLACK){
@@ -287,11 +294,11 @@ int is_move_valid(char* move,enum piece_color turn, int* type)
         str[3]+='1';
         SDL_Delay(25);
 
-                if(!strncmp(&(G.moves[G.halfplies-1][0]),str,4));else return 0; *type=ENPASSANT;
+                if(!strncmp(&(G.moves[G.halfplies-1][0]),str,4));else return 0; *type|=ENPASSANT;
 
         }
         if(n==i&&p2!=NOTPIECE)return 0;
-        if((c1==WHITE&&m==0)||(c1==BLACK&&m==7))*type=PROMOTION;
+        if((c1==WHITE&&m==0)||(c1==BLACK&&m==7))*type|=PROMOTION;
 
     }
     }

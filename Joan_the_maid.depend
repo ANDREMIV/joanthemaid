@@ -796,7 +796,7 @@
 
 1588109261 source:c:\devel\c\joan_the_maid\rules.c
 
-1593606321 source:c:\devel\c\joan_the_maid\joan_the_maid\board.c
+1595445094 source:c:\devel\c\joan_the_maid\joan_the_maid\board.c
 	"main.h"
 
 1593721375 c:\devel\c\joan_the_maid\joan_the_maid\board.h
@@ -806,21 +806,24 @@
 
 1592075821 c:\devel\c\joan_the_maid\joan_the_maid\case_type.h
 
-1593724341 c:\devel\c\joan_the_maid\joan_the_maid\main.h
+1595447905 c:\devel\c\joan_the_maid\joan_the_maid\main.h
 	<SDL.h>
-	<stdio.h>
 	<stdlib.h>
 	<SDL_ttf.h>
 	<string.h>
 	<SDL_image.h>
+	<windows.h>
+	<tchar.h>
+	<stdio.h>
+	<strsafe.h>
 	"case_type.h"
 	"board.h"
 	"rules.h"
 	"players.h"
 
-1588289286 c:\devel\c\joan_the_maid\joan_the_maid\players.h
+1595419038 c:\devel\c\joan_the_maid\joan_the_maid\players.h
 
-1588361920 source:c:\devel\c\joan_the_maid\joan_the_maid\event.c
+1595419135 source:c:\devel\c\joan_the_maid\joan_the_maid\event.c
 	"main.h"
 
 1588361920 source:c:\devel\c\joan_the_maid\joan_the_maid\game.c
@@ -828,24 +831,24 @@
 
 1588091272 source:c:\devel\c\joan_the_maid\joan_the_maid\hud.c
 
-1593725676 source:c:\devel\c\joan_the_maid\joan_the_maid\init.c
+1595433053 source:c:\devel\c\joan_the_maid\joan_the_maid\init.c
 	"main.h"
 
 1588361920 source:c:\devel\c\joan_the_maid\joan_the_maid\mouse.c
 	"main.h"
 
-1588361920 source:c:\devel\c\joan_the_maid\joan_the_maid\players.c
+1595373956 source:c:\devel\c\joan_the_maid\joan_the_maid\players.c
 	"main.h"
 
-1593725545 source:c:\devel\c\joan_the_maid\joan_the_maid\rules.c
+1595242551 source:c:\devel\c\joan_the_maid\joan_the_maid\rules.c
 	"main.h"
 	<math.h>
 
-1588361920 source:c:\devel\c\joan_the_maid\joan_the_maid\main.c
+1595447905 source:c:\devel\c\joan_the_maid\joan_the_maid\main.c
 	"main.h"
 
 1588361920 source:c:\devel\c\joan_the_maid\joan_the_maid\display.c
 	"main.h"
 
-1593723912 c:\devel\c\joan_the_maid\joan_the_maid\rules.h
+1595159079 c:\devel\c\joan_the_maid\joan_the_maid\rules.h
 

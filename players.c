@@ -5,4 +5,5 @@ SDL_Surface *s;
 s=IMG_Load("marie2.jpg");
 p->photo= SDL_CreateTextureFromSurface(V.renderer, s);
 SDL_FreeSurface(s);
+
 }

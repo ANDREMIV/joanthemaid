@@ -1,3 +1,5 @@
+#ifdef WINWIN_BUILD
+
 /******************************************************************************\
 *       This is a part of the Microsoft Source Code Samples.
 *       Copyright 1995 - 1997 Microsoft Corporation.
@@ -92,7 +94,7 @@ Return Value:
   }
 
   sprintf( PipeNameBuffer,
-           "\\\\.\\Pipe\\RemoteExeAnon.%08x.%08x",
+           "\\\\.\\Pipe\\RemoteExeAnon.%08ld.%08ld",
            GetCurrentProcessId(),
            InterlockedIncrement(&PipeSerialNumber)
          );
@@ -133,3 +135,6 @@ Return Value:
   *lpWritePipe = WritePipeHandle;
   return( TRUE );
 }
+
+#endif //WINWIN_BUILD
+

@@ -17,9 +17,13 @@ PROCESS_INFORMATION piProcInfo;
 HANDLE g_hChildStd_IN_Wr;
 HANDLE g_hChildStd_OUT_Rd;
 HANDLE g_hChildStd_OUT_Wr;
+HANDLE hEvent;
+OVERLAPPED OV;
 #endif // WINWIN_BUILD
 
 };
 
 
 int init_player(struct player *p);
+int QueryMoveFromPlayer(struct player p,char *move);
+char ask_player_promotion(struct player* p,char* move);

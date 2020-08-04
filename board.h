@@ -3,17 +3,23 @@
 #define LINENB 8
 
 
-extern enum CaseType graphical_piece_selected;
-extern int is_piece_selected;
+//extern enum CaseType graphical_piece_selected;
+//extern int is_piece_selected;
 
 struct Board{ ///Holds the necessary info to play a particular game
 int b[ROWNB][LINENB];
 SDL_Rect Vscreen_board_association;
 int Csize;
+SDL_Texture* back;
+void* img;
 };
 
-int board_mouse_button_down(int x, int y);
-int board_mouse_button_up(int x, int y);
+void bridge_representation_board(char *move);
+int board_mouse_button_down(int x, int y, char* move);
+void update_board(char* move, enum Etype type,struct player* p);
+int board_mouse_button_up(int x, int y,char* move);
+int board_mouse_motion(int relx, int rely);
+int board_bad_move();
 
 //white left rook line
 #define WLRL 7

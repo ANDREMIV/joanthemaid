@@ -14,10 +14,10 @@ RnBqKbNr";
 
 int init_player_bot(struct player *p) //create engine thread, create pipes with chess GUI
 {
+    p->is_human=0;
     #ifdef WINWIN_BUILD
     SECURITY_ATTRIBUTES saAttr;
 
-   printf("\n->Start of parent execution.\n");
 
 // Set the bInheritHandle flag so pipe handles are inherited.
 
@@ -27,33 +27,52 @@ int init_player_bot(struct player *p) //create engine thread, create pipes with 
 
 // Create a pipe for the child process's STDOUT.
 
-   if ( ! CreatePipe(&p->g_hChildStd_OUT_Rd, &p->g_hChildStd_OUT_Wr, &saAttr, 0) )
+   if ( ! MyCreatePipeEx(&p->g_hChildStd_OUT_Rd, &p->g_hChildStd_OUT_Wr, &saAttr, 0,FILE_FLAG_OVERLAPPED,0) )
       ErrorExit(TEXT("StdoutRd CreatePipe"));
 
 // Ensure the read handle to the pipe for STDOUT is not inherited.
 
-   if ( ! SetHandleInformation(&p->g_hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0) )
+   if ( ! SetHandleInformation(p->g_hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0) )
       ErrorExit(TEXT("Stdout SetHandleInformation"));
 
 // Create a pipe for the child process's STDIN.
 
-   if (! CreatePipe(&p->g_hChildStd_IN_Rd, &p->g_hChildStd_IN_Wr, &saAttr, 0))
+   if (! MyCreatePipeEx(&p->g_hChildStd_IN_Rd, &p->g_hChildStd_IN_Wr, &saAttr, 0,0,0))
       ErrorExit(TEXT("Stdin CreatePipe"));
 
 // Ensure the write handle to the pipe for STDIN is not inherited.
 
-   if ( ! SetHandleInformation(&p->g_hChildStd_IN_Wr, HANDLE_FLAG_INHERIT, 0) )
+   if ( ! SetHandleInformation(p->g_hChildStd_IN_Wr, HANDLE_FLAG_INHERIT, 0) )
       ErrorExit(TEXT("Stdin SetHandleInformation"));
 
 
+      p->hEvent = CreateEvent(
+         NULL,    // default security attribute
+         FALSE,    // manual-reset event
+         FALSE,    // initial state = non signaled
+         NULL);   // unnamed event object
+         p->OV.hEvent=p->hEvent;
+         p->OV.Offset=0;p->OV.OffsetHigh=0;
+    strncpy(p->command,"stockfish.exe",40);
+
+   printf("\n->Start of parent execution.\n");
+   CreateChildProcess(p);
 
     #endif // WINWIN_BUILD
+
+    WriteToPipe("uci\n",p);
+    SDL_Delay(100);
+    ReadFromPipe(p,NULL);
+
+    WriteToPipe("ucinewgame\n",p);
+
+    return 0;
 }
 
 void CreateChildProcess(struct player *p)
 // Create a child process that uses the previously created pipes for STDIN and STDOUT.
 {
-   TCHAR* szCmdline=&p->command;
+   TCHAR* szCmdline=p->command;
    //PROCESS_INFORMATION piProcInfo;
    //STARTUPINFO siStartInfo;
    BOOL bSuccess = FALSE;

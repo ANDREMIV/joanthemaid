@@ -1,7 +1,33 @@
+///To do list
+//3 fold repetitions
+//50 moves rules testing
+//chess960
+//linux support
+//android support
+//chess clock support
+//simple gui
+//playing over internet
+//opening namings
+//survival mode
+//hand & brain mode
+//syzygy endgame table bases
+//tournament settings
+//difficulty settings
+//new engine installation
+//new game
+//fen support
+//resize window
+//undo move
+//sound support
+//music
+//blind mode
+//color pick
+
+
 
 #include "main.h"
 
-
+int play_game();
 
 
 #ifdef WINWIN_BUILD
@@ -65,52 +91,19 @@ int main(int argv, char** args)
     Args=args;
     initgame();
     initvideo();
-    init_player(&G.players[0]);
-
     init_CaseType();
+    init_player(&G.players[0]);
+    //init_player(&G.players[1]);
+    //init_player_bot(&G.players[0]);
+    init_player_bot(&G.players[1]);
+
+
     printgrid();
 
+    play_game();
 
 
-while (1) {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        /* handle your event here */
 
-          if(event.type==SDL_KEYDOWN)
-                  goto quit;
-          if(event.type==SDL_QUIT)
-                  goto quit;
-         if(event.type==SDL_MOUSEBUTTONDOWN)
-                  {
-                    which_mouse_hit(&event);
-                      //SDL_RenderCopy(V.renderer, G.players[0].photo, NULL, NULL);
-    //SDL_RenderPresent(V.renderer);
-
-                  }
-        if(event.type==SDL_MOUSEBUTTONUP)
-                  {
-
-                  }
-
-    SDL_Delay(25);
-
-    }
-    event.type=0;
-    /* do some other stuff here -- draw your app, etc. */
-}
-
-quit:
-
-
-TTF_Quit();
-IMG_Quit();
-
-
-//SDL_DestroyTexture(board);
-  SDL_DestroyRenderer(V.renderer);
-  SDL_DestroyWindow(V.window);
-  SDL_Quit();
 
 
     return 0;

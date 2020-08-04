@@ -16,14 +16,25 @@
 #include <strsafe.h>
 
 
-//void ErrorExit(char* text);
+BOOL
+APIENTRY
+MyCreatePipeEx(
+    OUT LPHANDLE lpReadPipe,
+    OUT LPHANDLE lpWritePipe,
+    IN LPSECURITY_ATTRIBUTES lpPipeAttributes,
+    IN DWORD nSize,
+    DWORD dwReadMode,
+    DWORD dwWriteMode
+    );
 void ErrorExit(PTSTR lpszFunction);
 #endif // WINWIN_BUILD
 
 #include "case_type.h"
-#include "board.h"
 #include "rules.h"
 #include "players.h"
+#include "board.h"
+
+#include "event.h"
 
 #define BUFSIZE 4096
 
@@ -59,6 +70,10 @@ int init_CaseType();
 void initgame();
 void initvideo();
 void printgrid();
-void printcase(int i, int j);
-int which_mouse_hit(SDL_Event *e);
-int is_move_valid(char* move,enum piece_color turn, int* type);
+void printcase(int i, int j,enum CaseType CT);
+int is_move_valid(char* move,enum piece_color turn, enum Etype* type);
+void position_mouse(SDL_Event *e, enum BHtype *type, int* relx, int *rely); //detect where mouse button hit
+void WriteToPipe(char* s, struct player *p);
+void ReadFromPipe(struct player *p, char* mr);
+void CreateChildProcess(struct player *p);
+int init_player_bot(struct player *p);

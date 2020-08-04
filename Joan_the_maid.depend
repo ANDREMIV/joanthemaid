@@ -796,17 +796,17 @@
 
 1588109261 source:c:\devel\c\joan_the_maid\rules.c
 
-1595445094 source:c:\devel\c\joan_the_maid\joan_the_maid\board.c
+1596408939 source:c:\devel\c\joan_the_maid\joan_the_maid\board.c
 	"main.h"
 
-1593721375 c:\devel\c\joan_the_maid\joan_the_maid\board.h
+1596217562 c:\devel\c\joan_the_maid\joan_the_maid\board.h
 
-1592075821 source:c:\devel\c\joan_the_maid\joan_the_maid\case_type.c
+1596210238 source:c:\devel\c\joan_the_maid\joan_the_maid\case_type.c
 	"main.h"
 
 1592075821 c:\devel\c\joan_the_maid\joan_the_maid\case_type.h
 
-1595447905 c:\devel\c\joan_the_maid\joan_the_maid\main.h
+1596202869 c:\devel\c\joan_the_maid\joan_the_maid\main.h
 	<SDL.h>
 	<stdlib.h>
 	<SDL_ttf.h>
@@ -817,38 +817,48 @@
 	<stdio.h>
 	<strsafe.h>
 	"case_type.h"
-	"board.h"
 	"rules.h"
 	"players.h"
+	"board.h"
+	"event.h"
 
-1595419038 c:\devel\c\joan_the_maid\joan_the_maid\players.h
+1596016690 c:\devel\c\joan_the_maid\joan_the_maid\players.h
 
-1595419135 source:c:\devel\c\joan_the_maid\joan_the_maid\event.c
+1596186827 source:c:\devel\c\joan_the_maid\joan_the_maid\event.c
 	"main.h"
 
-1588361920 source:c:\devel\c\joan_the_maid\joan_the_maid\game.c
+1596229858 source:c:\devel\c\joan_the_maid\joan_the_maid\game.c
 	"main.h"
 
 1588091272 source:c:\devel\c\joan_the_maid\joan_the_maid\hud.c
 
-1595433053 source:c:\devel\c\joan_the_maid\joan_the_maid\init.c
+1595981684 source:c:\devel\c\joan_the_maid\joan_the_maid\init.c
 	"main.h"
 
-1588361920 source:c:\devel\c\joan_the_maid\joan_the_maid\mouse.c
+1596061305 source:c:\devel\c\joan_the_maid\joan_the_maid\mouse.c
 	"main.h"
 
-1595373956 source:c:\devel\c\joan_the_maid\joan_the_maid\players.c
+1596464524 source:c:\devel\c\joan_the_maid\joan_the_maid\players.c
 	"main.h"
 
-1595242551 source:c:\devel\c\joan_the_maid\joan_the_maid\rules.c
+1596457826 source:c:\devel\c\joan_the_maid\joan_the_maid\rules.c
 	"main.h"
 	<math.h>
 
-1595447905 source:c:\devel\c\joan_the_maid\joan_the_maid\main.c
+1596457889 source:c:\devel\c\joan_the_maid\joan_the_maid\main.c
 	"main.h"
 
-1588361920 source:c:\devel\c\joan_the_maid\joan_the_maid\display.c
+1596229047 source:c:\devel\c\joan_the_maid\joan_the_maid\display.c
 	"main.h"
 
 1595159079 c:\devel\c\joan_the_maid\joan_the_maid\rules.h
+
+1595974095 source:c:\devel\c\joan_the_maid\joan_the_maid\anonymasyncpipes.c
+	<windows.h>
+	<stdio.h>
+
+1596034736 source:c:\devel\c\joan_the_maid\joan_the_maid\ipc.c
+	"main.h"
+
+1595923711 c:\devel\c\joan_the_maid\joan_the_maid\event.h
 

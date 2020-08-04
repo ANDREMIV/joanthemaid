@@ -175,9 +175,9 @@ int is_check(enum piece_color c1)
 }
 
 
-int is_move_valid(char* move,enum piece_color turn, int* type)
+int is_move_valid(char* move,enum piece_color turn, enum Etype* type)
 {
-    int dum=0;
+    enum Etype dum=0;
     if(!type)type=&dum;
     int i=move[0]-'a'; if(i<0&&i>=ROWNB)return 0;
     int j=move[1]-'1'; if(j<0&&j>=LINENB)return 0;
@@ -241,11 +241,9 @@ int is_move_valid(char* move,enum piece_color turn, int* type)
     if(p1==KING){if(turn==WHITE)*type|=WKING;else *type|=BKING;if(n>i+1||n<i-1||m>j+1||m<j-1)return 0;//add code to prevent king into staying in check
             if(is_square_attacked(n,m,!turn))return 0;
             if(che&&find_piece_from_CT(G.B.b[c][d])!=PAWN&&find_piece_from_CT(G.B.b[c][d])!=KNIGHT){
-                int k1,k2; int s1= (c-a)!=0 ? -(c-a)/abs(c-a) : 0; int s2= (d-b)!=0 ? -(d-b)/abs(d-b) : 0; if(n==a+s1&&m==b+s2)return 0;
-            if(che==2){
-                int k1,k2; int s1= (g-a)!=0 ? -(g-a)/abs(g-a) : 0; int s2= (h-b)!=0 ? -(h-b)/abs(h-b) : 0; if(n==a+s1&&m==b+s2)return 0;
-            }
-            }
+                int s1= (c-a)!=0 ? -(c-a)/abs(c-a) : 0; int s2= (d-b)!=0 ? -(d-b)/abs(d-b) : 0; if(n==a+s1&&m==b+s2)return 0;}
+            if(che==2&&find_piece_from_CT(G.B.b[g][h])!=PAWN&&find_piece_from_CT(G.B.b[g][h])!=KNIGHT){
+                int s1= (g-a)!=0 ? -(g-a)/abs(g-a) : 0; int s2= (h-b)!=0 ? -(h-b)/abs(h-b) : 0; if(n==a+s1&&m==b+s2)return 0;}
             }
     else{
 
@@ -282,17 +280,19 @@ int is_move_valid(char* move,enum piece_color turn, int* type)
             if(c1==BLACK){
                 if(m-j<=0)return 0;
         if(j!=1)if(distance>sqrt(2))return 0;
+        if(distance==2&&is_piece_a_piece(G.B.b[i][2]))return 0;
         }
         if(c1==WHITE){
                 if(j-m<=0)return 0;
         if(j!=6)if(distance>sqrt(2))return 0;
+        if(distance==2&&is_piece_a_piece(G.B.b[i][5]))return 0;
         }
         if(n!=i&&p2==NOTPIECE){//en passant
                 if(c1==WHITE)if(j!=3)return 0; if(c1==BLACK)if(j!=4)return 0;
                 char str[5]={0};str[0]='a'+n; str[1]= turn==WHITE ? 1 : 6;str[1]+='1';str[2]='a'+n;str[3]= turn==WHITE ? 3 : 4;
         if(find_piece_from_CT(G.B.b[n][(int)(str[3])])!=PAWN)return 0;
         str[3]+='1';
-        SDL_Delay(25);
+        //SDL_Delay(25);
 
                 if(!strncmp(&(G.moves[G.halfplies-1][0]),str,4));else return 0; *type|=ENPASSANT;
 

@@ -1,6 +1,7 @@
 
 #include "main.h"
 
+
 int is_piece_a_piece(enum CaseType p)
 {
     if(p!=wblank&&p!=bblank)return 1;
@@ -44,7 +45,7 @@ enum piece_color square_color(int i, int j)
 {
     if((i+j)%2)return BLACK;
     else return WHITE;
-};
+}
 
 char CaseType_char_association[]="klqwrtbvnmpoKLQWRTBVNMPO +";
 SDL_Texture* CaseType_texture_association[NBCASETYPE];
@@ -52,6 +53,7 @@ SDL_Texture* CaseType_texture_association[NBCASETYPE];
 int translate_char_to_case_type(char c)
 {
     int i; for(i=0;i<NBCASETYPE;i++)if(CaseType_char_association[i]==c)return i;
+    return 0;
 }
 
 int init_CaseType()
@@ -71,8 +73,18 @@ int i; for(i=0;i<NBCASETYPE;i++){char Cur[2];Cur[0]=CaseType_char_association[i]
 if(!(s=TTF_RenderText_Blended(font,Cur,color)))
 printf("TTF_OpenFont: %s\n", TTF_GetError());
     CaseType_texture_association[i] = SDL_CreateTextureFromSurface(V.renderer, s);
+    SDL_SetTextureBlendMode(CaseType_texture_association[i],
+                            SDL_BLENDMODE_BLEND);
+                            SDL_SetTextureAlphaMod(CaseType_texture_association[i],
+                           255);
     SDL_FreeSurface(s);
 }
+G.B.back=SDL_CreateTexture(V.renderer,
+                               SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING,
+                               G.B.Csize,
+                               G.B.Csize); //create texture of dynamic background behind piece to be dragged
+G.B.img=calloc(G.B.Vscreen_board_association.w*G.B.Vscreen_board_association.h,4);
+
 
 TTF_CloseFont(font);
 
